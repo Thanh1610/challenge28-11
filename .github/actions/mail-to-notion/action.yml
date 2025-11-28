@@ -1,0 +1,55 @@
+name: mail-to-notion
+description: Install deps, restore token, and run ts-node sync
+inputs:
+  gmail-client-id:
+    required: true
+  gmail-client-secret:
+    required: true
+  gmail-redirect-uri:
+    required: true
+  notion-token:
+    required: true
+  notion-database-id:
+    required: true
+  gmail-token-json:
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: npm install
+
+    - name: Export environment variables
+      shell: bash
+      run: |
+        {
+          echo "GMAIL_CLIENT_ID=${{ inputs.gmail-client-id }}"
+          echo "GMAIL_CLIENT_SECRET=${{ inputs.gmail-client-secret }}"
+          echo "GMAIL_REDIRECT_URI=${{ inputs.gmail-redirect-uri }}"
+          echo "NOTION_TOKEN=${{ inputs.notion-token }}"
+          echo "NOTION_DATABASE_ID=${{ inputs.notion-database-id }}"
+        } >> "$GITHUB_ENV"
+
+        if [ -n "${{ inputs.gmail-token-json }}" ]; then
+          {
+            echo "GMAIL_TOKEN_JSON<<'EOF'"
+            printf '%s\n' "${{ inputs.gmail-token-json }}"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+        fi
+
+    - name: Restore Gmail token
+      shell: bash
+      run: |
+        if [ -n "$GMAIL_TOKEN_JSON" ]; then
+          printf '%s' "$GMAIL_TOKEN_JSON" > token.json
+        else
+          echo "No Gmail token secret provided; skipping restore."
+        fi
+
+    - name: Run sync
+      shell: bash
+      run: npx ts-node index.ts
+

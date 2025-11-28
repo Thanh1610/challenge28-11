@@ -1,0 +1,29 @@
+name: Mail to Notion Sync
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Mail-to-Notion sync
+        uses: ./.github/actions/mail-to-notion
+        with:
+          gmail-client-id: ${{ secrets.GMAIL_CLIENT_ID }}
+          gmail-client-secret: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          gmail-redirect-uri: ${{ secrets.GMAIL_REDIRECT_URI }}
+          notion-token: ${{ secrets.NOTION_TOKEN }}
+          notion-database-id: ${{ secrets.NOTION_DATABASE_ID }}
+          gmail-token-json: ${{ secrets.GMAIL_TOKEN_JSON }}
+

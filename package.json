@@ -1,0 +1,33 @@
+{
+  "name": "challenge-repo-20251128-025835",
+  "version": "1.0.0",
+  "description": "Identify and implement a small project that helps automate, optimize, or improve your own workflow as an Engineer. The project should target something that reduces manual work, simplifies repetitive tasks, or uses AI/MCP to enhance your daily efficiency.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thuantvmindxcom/challenge-repo-20251128-025835.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/thuantvmindxcom/challenge-repo-20251128-025835/issues"
+  },
+  "homepage": "https://github.com/thuantvmindxcom/challenge-repo-20251128-025835#readme",
+  "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
+    "@notionhq/client": "^5.4.0",
+    "@types/node": "^24.10.1",
+    "dotenv": "^17.2.3",
+    "googleapis": "^133.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  }
+}
