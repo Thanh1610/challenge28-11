@@ -34,7 +34,7 @@ runs:
 
         if [ -n "${{ inputs.gmail-token-json }}" ]; then
           {
-            echo "GMAIL_TOKEN_JSON<<'EOF'"
+            echo "GMAIL_TOKEN_JSON<<EOF"
             printf '%s\n' "${{ inputs.gmail-token-json }}"
             echo "EOF"
           } >> "$GITHUB_ENV"
