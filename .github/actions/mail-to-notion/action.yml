@@ -34,9 +34,11 @@ runs:
 
     - name: Restore Gmail token
       shell: bash
+      env:
+        GMAIL_TOKEN_JSON: ${{ inputs.gmail-token-json }}
       run: |
-        if [ -n "${{ inputs.gmail-token-json }}" ]; then
-          printf '%s' "${{ inputs.gmail-token-json }}" > token.json
+        if [ -n "$GMAIL_TOKEN_JSON" ]; then
+          printf '%s' "$GMAIL_TOKEN_JSON" > token.json
         else
           echo "No Gmail token secret provided; skipping restore."
         fi
