@@ -11,7 +11,7 @@ inputs:
     required: true
   notion-database-id:
     required: true
-  gmail-token-json:
+  gmail-token-json-b64:
     required: false
     default: ""
 runs:
@@ -32,19 +32,13 @@ runs:
           echo "NOTION_DATABASE_ID=${{ inputs.notion-database-id }}"
         } >> "$GITHUB_ENV"
 
-        if [ -n "${{ inputs.gmail-token-json }}" ]; then
-          {
-            echo "GMAIL_TOKEN_JSON<<EOF"
-            printf '%s\n' "${{ inputs.gmail-token-json }}"
-            echo "EOF"
-          } >> "$GITHUB_ENV"
-        fi
-
     - name: Restore Gmail token
       shell: bash
+      env:
+        GMAIL_TOKEN_JSON_B64: ${{ inputs.gmail-token-json-b64 }}
       run: |
-        if [ -n "$GMAIL_TOKEN_JSON" ]; then
-          printf '%s' "$GMAIL_TOKEN_JSON" > token.json
+        if [ -n "$GMAIL_TOKEN_JSON_B64" ]; then
+          echo "$GMAIL_TOKEN_JSON_B64" | base64 -d > token.json
         else
           echo "No Gmail token secret provided; skipping restore."
         fi

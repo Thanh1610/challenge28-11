@@ -25,5 +25,5 @@ jobs:
           gmail-redirect-uri: ${{ secrets.GMAIL_REDIRECT_URI }}
           notion-token: ${{ secrets.NOTION_TOKEN }}
           notion-database-id: ${{ secrets.NOTION_DATABASE_ID }}
-          gmail-token-json: ${{ secrets.GMAIL_TOKEN_JSON }}
+          gmail-token-json-b64: ${{ secrets.GMAIL_TOKEN_JSON_B64 }}
 
